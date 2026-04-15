@@ -1,0 +1,7 @@
+Data Peserta Bootcamp Digital Skill Devops
+1. Nama: Fachrur Fatanillah
+2. Email: fachrurfatanillah@gmail.com
+3. Sistem Operasi yang digunakan: Windows 10
+4. Akun Gitlab/Github: https://github.com/fachrulfatanillah/
+5. Akun Telegram: @fachrulf
+6. Bahasa Pemrograman/Stack Yang dikuasai: node.js/php
