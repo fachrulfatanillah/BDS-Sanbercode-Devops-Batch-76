@@ -5,7 +5,4 @@ Melakukan pembaruan dan upgrade pada server, ini adalah langkah pertama yang waj
 sudo apt update && sudo apt upgrade -y
 ```
 
-```html
-<p align="center">
-  <img src="./images/1.png" width="80%">
-</p>
+./images/1.png
