@@ -1,0 +1,23 @@
+name: Build and Archive Artifact Tugas 14
+
+on:
+  push:
+    branches: ["main", "master"]
+
+jobs:
+  build-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Kode
+        uses: actions/checkout@v4
+
+      - name: Membuat Folder Dist dan File Index
+        run: |
+          mkdir dist
+          echo "<html><head><title>Tugas 14 DevOps</title></head><body><h1>Berhasil! Ini adalah Artifact dari GitHub Actions</h1><p>Nama: Klardia</p><p>Status: Build Success</p></body></html>" > dist/index.html
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hasil-build-tugas14
+          path: dist/
