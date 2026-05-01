@@ -1,0 +1,55 @@
+name: Continuous Deployment ke VPS Tugas 15
+
+on:
+  push:
+    branches: ["main", "master"]
+
+jobs:
+  # Job 1: Build & Artifact
+  build-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Kode
+        uses: actions/checkout@v4
+
+      - name: Create Production Build
+        run: |
+          mkdir dist
+          echo "<h1>Deploy Otomatis Berhasil!</h1><p>Update pada: $(date)</p>" > dist/index.html
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-artifact
+          path: dist/
+
+  # Job 2: Deploy (Hanya jalan jika build-job sukses)
+  deploy-job:
+    needs: build-job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-artifact
+          path: ./dist-to-deploy
+
+      - name: Transfer ke VPS via SCP
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.vps_host }}
+          username: ${{ secrets.vps_user }}
+          key: ${{ secrets.vps_key }}
+          source: "./dist-to-deploy/*"
+          target: "~/tugas-devops/Tugas-15"
+          strip_components: 1
+
+      - name: Execute Remote SSH Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.vps_host }}
+          username: ${{ secrets.vps_user }}
+          key: ${{ secrets.vps_key }}
+          script: |
+            echo "Deployment Selesai di VPS!"
+            ls -l ~/tugas-devops/Tugas-15
